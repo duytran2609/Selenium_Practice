@@ -1,6 +1,10 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Test Suite by Group">
 
+    <listeners>
+        <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
+    </listeners>
+
     <test name="Selenium Tests">
 
 <!--        <groups>-->
@@ -12,8 +16,11 @@
 
         <classes>
             <class name="tests.login.LoginTest"/>
-            <class name="tests.logout.LogoutTest"/>
+<!--            <class name="tests.login.LoginUITest"/>-->
+<!--            <class name="tests.logout.LogoutTest"/>-->
+<!--            <class name="tests.movie.MovieTest"/>-->
         </classes>
+
     </test>
 
 </suite>

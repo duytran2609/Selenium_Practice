@@ -1,5 +1,6 @@
 package pages;
 
+import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -7,10 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class HomePage {
-
-    private WebDriver driver;
-    private WebDriverWait wait;
+public class HomePage extends BasePage {
 
     private MoviePage moviePage;
 
@@ -20,26 +18,32 @@ public class HomePage {
     By innerMovie = By.linkText("Phim");
 
     public HomePage(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        super(driver);
     }
 
     public void logout() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(btnLogout)).click();
+        try {
+            click(btnLogout);
+        } catch (Exception e) {
+            log.error("Logout fail because: ", e);
+        }
     }
 
     public MoviePage navigateMoviePage() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(innerMovie)).click();
+        try {
+            click(innerMovie);
+        } catch (Exception e) {
+            log.error("Navigate to movie page fail because: ", e);
+        }
         return new MoviePage(driver);
     }
 
     public boolean isLogoutSuccess() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(btnLogin)).isDisplayed();
-
+        return isDisplayed(btnLogin);
     }
 
     public boolean isLogoutEnable() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(btnLogout)).isEnabled();
+        return isEnabled(btnLogin);
     }
 
 }

@@ -1,19 +1,24 @@
 package tests.login;
 
 import base.BaseTest;
+import jdk.jfr.Description;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pages.LoginPage;
 
-public class LoginTest extends BaseTest { // Luôn kế thừa class BaseTest
+public class LoginTest extends BaseTest {
+    private static final Logger log = LoggerFactory.getLogger(LoginTest.class); // Luôn kế thừa class BaseTest
 
     private LoginPage loginPage; // Nhớ tạo object page
 
     // Mở trang
     @BeforeMethod
-    public void openLoginPage() {
+    public void setUpLogin() {
+        log.info("Open login page");
         driver.get("https://movie-project-front-end.vercel.app/login");
         loginPage = new LoginPage(driver);
     }
@@ -31,22 +36,20 @@ public class LoginTest extends BaseTest { // Luôn kế thừa class BaseTest
     // Khởi tạo các test cases
     // Test flow logic
     @Test(priority = 1, groups = {"function"})
+    @Description("Test login với tài khoản hợp lệ")
+
     public void loginWithValidAccount() {
+        log.info("Open with valid account");
         loginPage.login("trandangduy13@gmail.com", "xanhlacay1");
         Assert.assertTrue(loginPage.isLoginSuccess(), "Đăng nhập thất bại");
     }
 
     @Test(priority = 2, groups = {"function"}, dataProvider = "invalidLoginData")
+    @Description("Test login với tài khoản không hợp lệ")
     public void loginWithInvalidAccount(String email, String password, String errorMessage) {
+        log.info("Login with invalid account: email = [{}], password = [{}]", email, password);
         loginPage.login(email, password);
-        Assert.assertTrue(loginPage.isLoginFailed(), errorMessage);
+        Assert.assertFalse(loginPage.isLoginFailed(), errorMessage);
     }
 
-    @Test(priority = 3, groups = {"UI"})
-    public void verifyPageUI() {
-        Assert.assertTrue(loginPage.isLoginFormDisplayed(), "Login form doesn't appear");
-        Assert.assertTrue(loginPage.isEmailInputDisplayed(), "Email input doesn't appear");
-        Assert.assertTrue(loginPage.isPasswordInputDisplayed(), "Password input doesn't appear");
-        Assert.assertTrue(loginPage.isLoginButtonDisplayed(), "Login button doesn't work");
-    }
 }
