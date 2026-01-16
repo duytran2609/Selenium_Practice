@@ -42,7 +42,7 @@ public class BasePage {
     protected void clear(By locator, String text, boolean clearBefore) {
         log.debug("Clear [{}] in locator {}", text, locator);
         WebElement element = find(locator);
-        if (clearBefore) {
+        if (!clearBefore) {
             element.clear();
         }
         element.sendKeys(text);

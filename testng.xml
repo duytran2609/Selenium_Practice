@@ -20,7 +20,8 @@
 <!--            <class name="tests.login.LoginUITest"/>-->
 <!--            <class name="tests.logout.LogoutTest"/>-->
 <!--            <class name="tests.movie.MovieTest"/>-->
-            <class name="tests.login.ForgetPasswordTest"/>
+<!--            <class name="tests.login.ForgetPasswordTest"/>-->
+            <class name="tests.register.RegisterTest"/>
 
         </classes>
 
