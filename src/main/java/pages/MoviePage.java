@@ -24,7 +24,7 @@ public class MoviePage extends BasePage {
     private By txtMovieTitle = By.cssSelector(".movie-title");
     private By txtMovieYear = By.cssSelector(".movie-meta");
 
-    private By dropdownMovieCategory = By.cssSelector(".filter-select");
+    private By dropdownMovieType = By.cssSelector(".filter-select");
     private By optionDropdown = By.cssSelector(".filter-select");
 
     private By txtNoMovieFound = By.xpath("//*[@id=\"root\"]/div/div/div[2]/h2");
@@ -68,17 +68,32 @@ public class MoviePage extends BasePage {
     }
 
     // ===== MOVIE LIST =====
+
+    public void waitForMoviesReload() {
+        wait.until(ExpectedConditions.or(
+                ExpectedConditions.presenceOfElementLocated(crdMovies),
+                ExpectedConditions.presenceOfElementLocated(txtNoMovieFound)
+        ));
+    }
+
+
     public void searchMovie(String keyword) {
         type(iptMovie, keyword);
     }
 
     public List<String> getAllMovieTitles() {
         wait.until(ExpectedConditions.or(
-                ExpectedConditions.presenceOfElementLocated(crdMovies),
-                ExpectedConditions.presenceOfElementLocated(txtNoMovieFound)
+                ExpectedConditions.visibilityOfElementLocated(crdMovies),
+                ExpectedConditions.visibilityOfElementLocated(txtNoMovieFound)
         ));
+        if (driver.findElements(txtNoMovieFound).size() > 0) {
+            return List.of();
+        }
         return driver.findElements(crdMovies).stream()
-                .map(movie -> movie.findElement(txtMovieTitle).getText().toLowerCase())
+                .map(movie -> movie.findElement(txtMovieTitle)
+                        .getText()
+                        .trim()
+                        .toLowerCase())
                 .toList();
     }
 
@@ -96,26 +111,26 @@ public class MoviePage extends BasePage {
         return wait.until(ExpectedConditions.urlContains(hrefPart));
     }
 
-    // ===== MOVIE CATEGORY DROPDOWN =====
-    public boolean isMovieCategoryDropdownActive() {
-        return isDisplayed(dropdownMovieCategory) && isEnabled(dropdownMovieCategory);
+    // ===== MOVIE TYPE DROPDOWN =====
+    public boolean isMovieTypeDropdownActive() {
+        return isDisplayed(dropdownMovieType) && isEnabled(dropdownMovieType);
     }
 
-    public List<String> getAllCategories() {
-        Select dropdown = new Select(driver.findElement(dropdownMovieCategory));
+    public List<String> getAllTypes() {
+        Select dropdown = new Select(driver.findElement(dropdownMovieType));
         List<WebElement> options = dropdown.getOptions();
         return options.stream()
                     .map(e -> e.getText().trim())
                     .toList();
     }
 
-    public String getCategoryDropdownOption(String category) {
+    public String getTypeDropdownOption(String type) {
         String optionSelected = "";
-        click(dropdownMovieCategory);
-        Select dropdown = new Select(driver.findElement(dropdownMovieCategory));
+        click(dropdownMovieType);
+        Select dropdown = new Select(driver.findElement(dropdownMovieType));
         List<WebElement> options = dropdown.getOptions();
         for (WebElement option : options) {
-            if (option.getText().trim().equals(category)) {
+            if (option.getText().trim().equals(type)) {
                 option.click();
                 optionSelected = option.getText();
             }
@@ -123,12 +138,10 @@ public class MoviePage extends BasePage {
         return optionSelected;
     }
 
-//    public void selectCategory() {
-//        Select dropdown = new Select(driver.findElement(drpMovieCategory));
-//        List<WebElement> options = dropdown.getOptions();
-//        for (WebElement option : options) {
-//            String value = option.getText().trim();
-//        }
-//    }
+    public void selectType(String type) {
+        Select dropdown = new Select(driver.findElement(dropdownMovieType));
+        dropdown.selectByContainsVisibleText(type);
+    }
 
 }
+
