@@ -10,4 +10,16 @@ public class MovieAPI extends BaseAPI {
                 .when()
                 .get("/movies");
     }
+
+    public Response getMoviesBySearch(String keyword) {
+        return requestSpecification.queryParam("search", keyword)
+                .when()
+                .get("/movies");
+    }
+
+    public Response getMoviesByPage(String page) {
+        return requestSpecification.queryParam("page", page)
+                .when()
+                .get("/movies");
+    }
 }

@@ -30,6 +30,13 @@ public class MoviePage extends BasePage {
 
     private By txtNoMovieFound = By.xpath("//*[@id=\"root\"]/div/div/div[2]/h2");
 
+    private By btnPreviousPage = By.cssSelector(".pagination-prev");
+    private By btnPageNumber = By.cssSelector(".pagination-number ");
+    private By btnPageSelected = By.cssSelector(".pagination-number.active");
+    private By btnNextPage = By.cssSelector(".pagination-next");
+    private By iptPage = By.cssSelector(".pagination-goto-input");
+    private By btnGo = By.cssSelector(".pagination-goto-btn");
+
     public MoviePage(WebDriver driver) {
         super(driver);
         headerComponent = new HeaderComponent(driver);
@@ -85,10 +92,7 @@ public class MoviePage extends BasePage {
     }
 
     public List<String> getAllMovieTitles() {
-        wait.until(ExpectedConditions.or(
-                ExpectedConditions.visibilityOfElementLocated(crdMovies),
-                ExpectedConditions.visibilityOfElementLocated(txtNoMovieFound)
-        ));
+        waitForMoviesReload();
         if (driver.findElements(txtNoMovieFound).size() > 0) {
             return List.of();
         }
@@ -169,7 +173,94 @@ public class MoviePage extends BasePage {
         return dropdown.toString();
     }
 
+    // ===== PAGINATION =====
+    public boolean isPreviousPageButtonDisplay() {
+        return isDisplayed(btnPreviousPage);
+    }
 
+    public boolean isPreviousPageButtonActive() {
+        return isEnabled(btnPreviousPage);
+    }
+
+    public List<WebElement> pageNumberList() {
+        return wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(btnPageNumber));
+    }
+
+    public WebElement getFirstPage() {
+        return pageNumberList().getFirst();
+    }
+
+    public String getPageSelected() {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(btnPageSelected)).getText();
+    }
+
+    public void navigateToAnotherPage(String page) {
+        By activePage = By.cssSelector(".pagination-number.active");
+
+        WebElement oldActive = driver.findElement(activePage);
+
+        By pageLocator = By.xpath("//button[text()='" + page + "']");
+        driver.findElement(pageLocator).click();
+
+        // chờ active cũ biến mất
+        wait.until(ExpectedConditions.stalenessOf(oldActive));
+        // chờ active mới xuất hiện
+        wait.until(ExpectedConditions.presenceOfElementLocated(activePage));
+    }
+
+
+    public void navigateToLastPage() {
+        By pages = By.cssSelector(".pagination-number ");
+        List<WebElement> allPages = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(pages));
+        WebElement oldActive = driver.findElement(By.cssSelector(".pagination-number.active"));
+        allPages.get(allPages.size()-1).click();
+        wait.until(ExpectedConditions.stalenessOf(oldActive));
+    }
+
+    public void waitForMovieReload() {
+        wait.until(ExpectedConditions.stalenessOf(
+                driver.findElement(By.cssSelector(".movie-card"))
+        ));
+    }
+
+    public void navigateToPreviousPage() {
+        By activePage = By.cssSelector(".pagination-number.active");
+        WebElement oldActive = driver.findElement(activePage);
+        wait.until(ExpectedConditions.elementToBeClickable(btnPreviousPage)).click();
+        wait.until(ExpectedConditions.stalenessOf(oldActive));
+        wait.until(ExpectedConditions.presenceOfElementLocated(activePage));
+    }
+
+    public void navigateToNextPage() {
+        By activePage = By.cssSelector(".pagination-number.active");
+        WebElement oldActive = driver.findElement(activePage);
+        wait.until(ExpectedConditions.elementToBeClickable(btnNextPage)).click();
+        wait.until(ExpectedConditions.stalenessOf(oldActive));
+        wait.until(ExpectedConditions.presenceOfElementLocated(activePage));
+    }
+
+
+    public boolean isNextPageButtonDisplay() {
+        return isDisplayed(btnNextPage);
+    }
+
+    public boolean isNextPagePageButtonActive() {
+        return isEnabled(btnNextPage);
+    }
+
+    public void inputPageToNavigate(String page) {
+//        List<String> pageNumberList = pageNumberList().stream()
+//                .map(t -> t.getText().trim())
+//                .toList();
+//        int firstIndex = Integer.parseInt(pageNumberList.getFirst());
+//        int lastIndex = Integer.parseInt(pageNumberList.getLast());
+        type(iptPage, page);
+        click(btnGo);
+    }
+
+    public String getInputPageText() {
+        return driver.findElement(iptPage).getText();
+    }
 
 }
 

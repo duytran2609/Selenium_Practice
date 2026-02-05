@@ -27,7 +27,8 @@
 <!--            <class name="tests.movie.SeeMovieDetails"/>-->
 <!--            <class name="tests.movie.SearchMovie"/>-->
 <!--            <class name="tests.movie.GetMovieByType"/>-->
-            <class name="tests.movie.ClearMovieListFilter"/>
+<!--            <class name="tests.movie.ClearMovieListFilter"/>-->
+            <class name="tests.movie.MovieListPagination"/>
 
 
 
