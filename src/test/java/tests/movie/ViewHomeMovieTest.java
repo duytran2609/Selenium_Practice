@@ -8,7 +8,7 @@ import org.testng.asserts.SoftAssert;
 import pages.HomePage;
 import pages.LoginPage;
 
-public class GetHomeMovie extends BaseTest {
+public class ViewHomeMovieTest extends BaseTest {
     private LoginPage loginPage;
     private HomePage homePage;
 

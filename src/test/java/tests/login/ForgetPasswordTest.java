@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 import pages.ForgetPasswordPage;
 import pages.LoginPage;
 
-public class ForgetPassword extends BaseTest {
+public class ForgetPasswordTest extends BaseTest {
 
     private LoginPage loginPage;
     private ForgetPasswordPage forgetPasswordPage;
@@ -33,14 +33,14 @@ public class ForgetPassword extends BaseTest {
     }
 
     @Test
-    public void testInputValidEmail() {
+    public void shouldResetPasswordSuccessfullyWhenEmailIsValid() {
         forgetPasswordPage.inputEmail("trandangduy13@gmail.com");
         forgetPasswordPage.clickSendButton();
         Assert.assertTrue(forgetPasswordPage.isSendSuccess(), "Submit button vẫn còn hiển thị, request có thể chưa gửi thành công");
     }
 
     @Test(dataProvider = "emailData", dependsOnMethods = {"testInputValidEmail"})
-    public void testInputInvalidEmail(String email) {
+    public void shouldFailToResetPasswordWhenEmailIsInvalid(String email) {
         forgetPasswordPage.inputEmail(email);
         forgetPasswordPage.clickSendButton();
         Assert.assertTrue(forgetPasswordPage.isSendSuccess(), "Submit button vẫn còn hiển thị, request có thể chưa gửi thành công");

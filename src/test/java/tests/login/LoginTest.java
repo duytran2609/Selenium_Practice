@@ -48,7 +48,7 @@ public class LoginTest extends BaseTest {
     // Test flow logic
     @Test(priority = 1, groups = {"function"})
     @Description("Test login với tài khoản hợp lệ")
-    public void testLoginWithValidAccount() {
+    public void shouldLoginSuccessfullyWhenCredentialsAreValid() {
         log.info("Open with valid account");
         loginPage.login("trandangduy13@gmail.com", "xanhlacay1");
         Assert.assertTrue(loginPage.isLoginSuccess(), "Đăng nhập thất bại");
@@ -56,7 +56,7 @@ public class LoginTest extends BaseTest {
 
     @Test(priority = 2, groups = {"function"}, dataProvider = "invalidLoginData")
     @Description("Test login với tài khoản không hợp lệ")
-    public void testLoginWithInvalidAccount(String email, String password, String errorMessage) {
+    public void shouldFailToLoginWhenCredentialsAreInvalid(String email, String password, String errorMessage) {
         log.info("Login with invalid account: email = [{}], password = [{}]", email, password);
         loginPage.login(email, password);
         Assert.assertFalse(loginPage.isLoginFailed(), errorMessage);

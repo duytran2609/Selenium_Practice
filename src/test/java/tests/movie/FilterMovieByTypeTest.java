@@ -14,7 +14,7 @@ import pages.MoviePage;
 
 import java.util.List;
 
-public class GetMovieByType extends BaseTest {
+public class FilterMovieByTypeTest extends BaseTest {
 
     private LoginPage loginPage;
     private HomePage homePage;
@@ -39,19 +39,19 @@ public class GetMovieByType extends BaseTest {
     }
 
     @Test
-    public void testDisplayMovieTypeDropdown() {
+    public void shouldDisplayMovieTypeDropdownSuccessfully() {
         moviePage = new MoviePage(driver);
         Assert.assertTrue(moviePage.isMovieTypeDropdownActive(), "Movie type dropdown is not active");
     }
 
     @Test
-    public void testSelectedDropdownText(String type) {
+    public void shouldDisplayMovieTypeSuccessfully(String type) {
         String optionSelected = moviePage.getTypeDropdownOption(type);
         Assert.assertEquals(optionSelected, type, "Movie type is not equal");
     }
 
     @Test(dataProvider = "movieTypeData")
-    public void testFilterMovieType(String apiType, String uiType) {
+    public void shouldDisplayMovieListCorrectlyAfterSelectingMovieType(String apiType, String uiType) {
         MovieAPI movieAPI = new MovieAPI();
         Response response = movieAPI.getMoviesByType(apiType);
         List<String> getApiTitles = response.then()

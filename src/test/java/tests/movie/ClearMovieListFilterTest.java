@@ -10,7 +10,7 @@ import pages.HomePage;
 import pages.LoginPage;
 import pages.MoviePage;
 
-public class ClearMovieListFilter extends BaseTest {
+public class ClearMovieListFilterTest extends BaseTest {
 
     private LoginPage loginPage;
     private HomePage homePage;
@@ -26,7 +26,7 @@ public class ClearMovieListFilter extends BaseTest {
     }
 
     @Test
-    public void testClearFilterAfterOnlySearch() {
+    public void shouldClearFilterAfterSearchingMovie() {
         int defaultSize = moviePage.getNumberOfMovies();
         System.out.println("Number of movies at the beginning: " + defaultSize);
         String keyword = "lego";
@@ -44,7 +44,7 @@ public class ClearMovieListFilter extends BaseTest {
     }
 
     @Test
-    public void testClearFilterAfterOnlyViaType() {
+    public void shouldClearFilterAfterSelectingMovieType() {
         int defaultSize = moviePage.getNumberOfMovies();
         String defaultOption = moviePage.getFirstType();
         System.out.println("Number of movies at the beginning: " + defaultSize);
@@ -62,7 +62,7 @@ public class ClearMovieListFilter extends BaseTest {
     }
 
     @Test
-    public void testClearFilterAfterSearchAndViaType() {
+    public void shouldClearFilterSuccessfullyAfterSearchingMovieAndSelectingMovieType() {
         int defaultSize = moviePage.getNumberOfMovies();
         String defaultOption = moviePage.getFirstType();
         System.out.println("Number of movies at the beginning: " + defaultSize);
@@ -81,7 +81,7 @@ public class ClearMovieListFilter extends BaseTest {
     }
 
     @Test
-    public void testClearFilterWithNoFilterApplied() {
+    public void shouldClearFilterWhenNoKeywordOrMovieTypeSelected() {
         int defaultSize = moviePage.getNumberOfMovies();
         System.out.println("Number of movies at the beginning: " + defaultSize);
         moviePage.clickClearFilterButton();

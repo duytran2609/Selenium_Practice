@@ -195,18 +195,12 @@ public class MoviePage extends BasePage {
     }
 
     public void navigateToAnotherPage(String page) {
-        By activePage = By.cssSelector(".pagination-number.active");
-
-        WebElement oldActive = driver.findElement(activePage);
-
-        By pageLocator = By.xpath("//button[text()='" + page + "']");
-        driver.findElement(pageLocator).click();
-
-        // chờ active cũ biến mất
-        wait.until(ExpectedConditions.stalenessOf(oldActive));
-        // chờ active mới xuất hiện
-        wait.until(ExpectedConditions.presenceOfElementLocated(activePage));
+        By pageBtn = By.xpath("//button[contains(@class,'pagination-number') and text()='" + page + "']");
+        WebElement targetPage = wait.until(ExpectedConditions.elementToBeClickable(pageBtn));
+        targetPage.click();
+        wait.until(ExpectedConditions.attributeContains(pageBtn, "class", "active"));
     }
+
 
 
     public void navigateToLastPage() {

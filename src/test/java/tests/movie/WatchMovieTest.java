@@ -10,7 +10,7 @@ import pages.LoginPage;
 import pages.MovieDetailsPage;
 import pages.MoviePage;
 
-public class SeeMovieDetails extends BaseTest {
+public class WatchMovieTest extends BaseTest {
 
     private LoginPage loginPage;
     private HomePage homePage;

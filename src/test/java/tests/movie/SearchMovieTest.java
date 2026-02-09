@@ -10,7 +10,7 @@ import pages.MoviePage;
 
 import java.util.List;
 
-public class SearchMovie extends BaseTest {
+public class SearchMovieTest extends BaseTest {
 
     private LoginPage loginPage;
     private HomePage homePage;
@@ -25,7 +25,7 @@ public class SearchMovie extends BaseTest {
     }
 
     @Test
-    public void testSearchWithValidResult() {
+    public void shouldSearchMovieSuccessfullyWhenKeywordIsValid() {
         String keyword = "lego";
         moviePage.searchMovie(keyword);
         List<String> titles = moviePage.getAllMovieTitles();
@@ -35,7 +35,7 @@ public class SearchMovie extends BaseTest {
     }
 
     @Test
-    public void testSearchWithInvalidResult() {
+    public void shouldFailToSearchMovieWhenKeywordIsInvalid() {
         String keyword = "dsbdbjsajdkjdbsj";
         moviePage.searchMovie(keyword);
         Assert.assertEquals(moviePage.getNoMovieFoundMessage(), "Movie not found"
@@ -43,7 +43,7 @@ public class SearchMovie extends BaseTest {
     }
 
     @Test
-    public void testSearchWithLeadingWhiteSpace() {
+    public void shouldSearchMovieWhenKeywordHasLeadingWhiteSpace() {
         String keyword = " leg";
         moviePage.searchMovie(keyword);
         Assert.assertTrue(moviePage.getAllMovieTitles().size() > 0
