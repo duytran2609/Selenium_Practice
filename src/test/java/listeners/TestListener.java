@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.*;
+import tests.driver.DriverManager;
 import utils.ScreenshotUtils;
 
 public class TestListener implements ITestListener {
@@ -30,13 +31,12 @@ public class TestListener implements ITestListener {
         log.error("Reason: ", result.getThrowable());
         Object testClass = result.getInstance();
         if (testClass instanceof BaseTest) {
-            BaseTest baseTest = (BaseTest) testClass;
             String screenshotPath = ScreenshotUtils.takeScreenshot(
-                    baseTest.getDriver(),
+                    DriverManager.getDriver(),
                     result.getMethod().getMethodName()
             );
             log.error("Screenshot saved at: {}", screenshotPath);
-            attachScreenshotToAllure(baseTest.getDriver());
+            attachScreenshotToAllure(DriverManager.getDriver());
         }
     }
 

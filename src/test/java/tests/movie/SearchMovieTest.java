@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.LoginPage;
 import pages.MoviePage;
+import tests.driver.DriverManager;
 
 import java.util.List;
 
@@ -18,8 +19,8 @@ public class SearchMovieTest extends BaseTest {
 
     @BeforeMethod
     public void setUpSearchMovieTest() {
-        driver.get("https://movie-project-front-end.vercel.app/login");
-        loginPage = new LoginPage(driver);
+        DriverManager.getDriver().get("https://movie-project-front-end.vercel.app/login");
+        loginPage = new LoginPage(DriverManager.getDriver());
         homePage = loginPage.login("trandangduy13@gmail.com", "xanhlacay1");
         moviePage = homePage.headerComponent.navigateToMoviePage();
     }

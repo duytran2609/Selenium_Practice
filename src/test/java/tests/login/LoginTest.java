@@ -10,6 +10,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.LoginPage;
+import tests.driver.DriverManager;
 
 public class LoginTest extends BaseTest {
     private static final Logger log = LoggerFactory.getLogger(LoginTest.class); // Luôn kế thừa class BaseTest
@@ -20,8 +21,8 @@ public class LoginTest extends BaseTest {
     @BeforeMethod
     public void setUpLoginTest() {
         log.info("Open login page");
-        driver.get("https://movie-project-front-end.vercel.app/login");
-        loginPage = new LoginPage(driver);
+        DriverManager.getDriver().get("https://movie-project-front-end.vercel.app/login");
+        loginPage = new LoginPage(DriverManager.getDriver());
     }
 
     // Khởi tạo bộ data

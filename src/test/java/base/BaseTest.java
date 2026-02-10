@@ -11,6 +11,7 @@ import org.testng.annotations.BeforeMethod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeSuite;
+import tests.driver.DriverManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,35 +23,22 @@ import java.util.Comparator;
 
 public class BaseTest {
 
-    protected WebDriver driver;
 
     protected static final Logger log = LoggerFactory.getLogger(BaseTest.class);
 
     @BeforeMethod
     public void setUp() {
         log.info("Start browser");
-        driver = new ChromeDriver();
+        WebDriver driver = new ChromeDriver();
+        DriverManager.setDriver(driver);
         driver.manage().window().maximize();
     }
 
     @AfterMethod
     public void tearDown() {
         log.info("Quit browser");
-        if (driver != null) {
-            try {
-                Thread.sleep(4500);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            driver.quit();
-        }
+        DriverManager.quitDriver();
     }
-
-    public WebDriver getDriver() {
-        return driver;
-    }
-
-
 
     @BeforeSuite
     public void cleanAllureResults() throws IOException {

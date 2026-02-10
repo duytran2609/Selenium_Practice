@@ -9,6 +9,7 @@ import org.testng.asserts.SoftAssert;
 import pages.HomePage;
 import pages.LoginPage;
 import pages.MoviePage;
+import tests.driver.DriverManager;
 
 public class ClearMovieListFilterTest extends BaseTest {
 
@@ -19,8 +20,8 @@ public class ClearMovieListFilterTest extends BaseTest {
 
     @BeforeMethod
     public void setUpClearMovieListFilterTest() {
-        driver.get("https://movie-project-front-end.vercel.app/login");
-        loginPage = new LoginPage(driver);
+        DriverManager.getDriver().get("https://movie-project-front-end.vercel.app/login");
+        loginPage = new LoginPage(DriverManager.getDriver());
         homePage = loginPage.login("trandangduy13@gmail.com", "xanhlacay1");
         moviePage = homePage.headerComponent.navigateToMoviePage();
     }

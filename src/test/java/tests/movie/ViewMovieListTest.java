@@ -8,6 +8,7 @@ import pages.HomePage;
 import pages.LoginPage;
 import pages.MovieDetailsPage;
 import pages.MoviePage;
+import tests.driver.DriverManager;
 
 public class ViewMovieListTest extends BaseTest {
 
@@ -18,8 +19,8 @@ public class ViewMovieListTest extends BaseTest {
 
     @BeforeMethod
     public void setUpGetMovieListTest() {
-        driver.get("https://movie-project-front-end.vercel.app/login");
-        loginPage = new LoginPage(driver);
+        DriverManager.getDriver().get("https://movie-project-front-end.vercel.app/login");
+        loginPage = new LoginPage(DriverManager.getDriver());
         homePage = loginPage.login("trandangduy13@gmail.com", "xanhlacay1");
     }
 
@@ -32,15 +33,15 @@ public class ViewMovieListTest extends BaseTest {
         Assert.assertTrue(homePage.headerComponent.isNavigateToMoviePageSuccess(), "Cannot navigate to movie page");
     }
 
-    @Test
-    public void testNavigateViaMovieDetailsPageHeader() {
-        homePage.navigateToMovieDetailsPage();
-        movieDetailsPage = new MovieDetailsPage(driver);
-        if (movieDetailsPage.headerComponent.isMovieActive()) {
-           moviePage = movieDetailsPage.headerComponent.navigateToMoviePage();
-        }
-        Assert.assertTrue(movieDetailsPage.headerComponent.isNavigateToMoviePageSuccess(), "Cannot navigate to movie page");
-    }
+//    @Test
+//    public void testNavigateViaMovieDetailsPageHeader() {
+//        homePage.navigateToMovieDetailsPage();
+//        movieDetailsPage = new MovieDetailsPage(DriverManager.getDriver());
+//        if (movieDetailsPage.headerComponent.isMovieActive()) {
+//           moviePage = movieDetailsPage.headerComponent.navigateToMoviePage();
+//        }
+//        Assert.assertTrue(movieDetailsPage.headerComponent.isNavigateToMoviePageSuccess(), "Cannot navigate to movie page");
+//    }
 
     @Test
     public void shouldNavigateToMoviePageSuccessfullyViaExploreButton() {

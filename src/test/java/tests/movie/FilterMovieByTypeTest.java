@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.LoginPage;
 import pages.MoviePage;
+import tests.driver.DriverManager;
 
 import java.util.List;
 
@@ -23,8 +24,8 @@ public class FilterMovieByTypeTest extends BaseTest {
 
     @BeforeMethod
     public void setUpGetMovieByTypeTest() {
-        driver.get("https://movie-project-front-end.vercel.app/login");
-        loginPage = new LoginPage(driver);
+        DriverManager.getDriver().get("https://movie-project-front-end.vercel.app/login");
+        loginPage = new LoginPage(DriverManager.getDriver());
         homePage = loginPage.login("trandangduy13@gmail.com", "xanhlacay1");
         moviePage = homePage.headerComponent.navigateToMoviePage();
     }
@@ -40,7 +41,7 @@ public class FilterMovieByTypeTest extends BaseTest {
 
     @Test
     public void shouldDisplayMovieTypeDropdownSuccessfully() {
-        moviePage = new MoviePage(driver);
+        moviePage = new MoviePage(DriverManager.getDriver());
         Assert.assertTrue(moviePage.isMovieTypeDropdownActive(), "Movie type dropdown is not active");
     }
 

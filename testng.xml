@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Test Suite by Group">
+<suite name="Website Movie Test Suite" parallel="methods" thread-count="1">
 
     <listeners>
         <listener class-name="listeners.TestListener"/>

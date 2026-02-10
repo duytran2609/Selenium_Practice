@@ -3,11 +3,14 @@ package pages;
 import base.BasePage;
 import components.HeaderComponent;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
 public class MoviePage extends BasePage {
@@ -191,17 +194,18 @@ public class MoviePage extends BasePage {
     }
 
     public String getPageSelected() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(btnPageSelected)).getText();
+        return new WebDriverWait(driver, Duration.ofSeconds(10))
+                .ignoring(StaleElementReferenceException.class)
+                .until(d -> d.findElement(btnPageSelected).getText());
     }
 
     public void navigateToAnotherPage(String page) {
         By pageBtn = By.xpath("//button[contains(@class,'pagination-number') and text()='" + page + "']");
-        WebElement targetPage = wait.until(ExpectedConditions.elementToBeClickable(pageBtn));
-        targetPage.click();
+        WebElement oldPage = wait.until(ExpectedConditions.elementToBeClickable(pageBtn));
+        oldPage.click();
+        wait.until(ExpectedConditions.stalenessOf(oldPage));
         wait.until(ExpectedConditions.attributeContains(pageBtn, "class", "active"));
     }
-
-
 
     public void navigateToLastPage() {
         By pages = By.cssSelector(".pagination-number ");
@@ -253,7 +257,7 @@ public class MoviePage extends BasePage {
     }
 
     public String getInputPageText() {
-        return driver.findElement(iptPage).getText();
+        return driver.findElement(iptPage).getAttribute("value");
     }
 
 }

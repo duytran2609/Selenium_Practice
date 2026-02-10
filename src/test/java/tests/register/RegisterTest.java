@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import pages.ForgetPasswordPage;
 import pages.LoginPage;
 import pages.RegisterPage;
+import tests.driver.DriverManager;
 
 public class RegisterTest extends BaseTest {
 
@@ -19,10 +20,10 @@ public class RegisterTest extends BaseTest {
     @BeforeMethod
     public void setUpFlow() {
         log.info("Open login page");
-        driver.get("https://movie-project-front-end.vercel.app/login");
-        loginPage = new LoginPage(driver);
+        DriverManager.getDriver().get("https://movie-project-front-end.vercel.app/login");
+        loginPage = new LoginPage(DriverManager.getDriver());
         loginPage.register();
-        registerPage = new RegisterPage(driver);
+        registerPage = new RegisterPage(DriverManager.getDriver());
     }
 
     @DataProvider(name = "invalidUsernameData")
@@ -120,7 +121,7 @@ public class RegisterTest extends BaseTest {
     @Test
     public void navigateToLoginPage() {
         registerPage.clickLoginLinkText();
-        String currentURL = driver.getCurrentUrl();
+        String currentURL = DriverManager.getDriver().getCurrentUrl();
         Assert.assertTrue(currentURL.contains("login"), "An error occured while navigating");
     }
 

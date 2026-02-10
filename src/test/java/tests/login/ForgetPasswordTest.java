@@ -7,6 +7,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pages.ForgetPasswordPage;
 import pages.LoginPage;
+import tests.driver.DriverManager;
 
 public class ForgetPasswordTest extends BaseTest {
 
@@ -16,10 +17,10 @@ public class ForgetPasswordTest extends BaseTest {
     @BeforeMethod
     public void setUpForgetPasswordTest() {
         log.info("Open login page");
-        driver.get("https://movie-project-front-end.vercel.app/login");
-        loginPage = new LoginPage(driver);
+        DriverManager.getDriver().get("https://movie-project-front-end.vercel.app/login");
+        loginPage = new LoginPage(DriverManager.getDriver());
         loginPage.forgetPassword();
-        forgetPasswordPage = new ForgetPasswordPage(driver);
+        forgetPasswordPage = new ForgetPasswordPage(DriverManager.getDriver());
     }
 
     @DataProvider(name = "emailData")
