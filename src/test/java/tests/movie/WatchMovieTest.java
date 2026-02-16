@@ -28,13 +28,13 @@ public class WatchMovieTest extends BaseTest {
 
     // ===== NAVIGATION =====
     @Test
-    public void testNavigateToMovieDetailsPageViaHomePage() {
+    public void shouldNavigateToMovieDetailsPageSuccessfullyViaHomePage() {
         movieDetailsPage = homePage.navigateToMovieDetailsPage();
         Assert.assertTrue(homePage.isNavigateToMovieDetailsPage(), "Cannot navigate to movie details page");
     }
 
     @Test
-    public void testNavigateToMovieDetailsPageViaMoviePage() {
+    public void shouldNavigateToMovieDetailsPageSuccessfullyViaMoviePage() {
         moviePage = homePage.headerComponent.navigateToMoviePage();
         movieDetailsPage = moviePage.navigateToMovieDetailsPage();
         Assert.assertTrue(moviePage.isNavigateToMovieDetailsPage(), "Cannot navigate to movie details page");
@@ -42,7 +42,7 @@ public class WatchMovieTest extends BaseTest {
 
     // ===== CHECKING =====
     @Test
-    public void testMovieInformationEquals() {
+    public void shouldDisplayMovieInformationCorrectly() {
         moviePage = homePage.headerComponent.navigateToMoviePage();
         movieDetailsPage = moviePage.navigateToMovieDetailsPage();
         Assert.assertTrue(moviePage.isNavigateToMovieDetailsPage(), "Cannot navigate to movie details page");

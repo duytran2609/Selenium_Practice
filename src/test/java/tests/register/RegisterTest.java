@@ -17,7 +17,7 @@ public class RegisterTest extends BaseTest {
     private ForgetPasswordPage forgetPasswordPage;
 
     @BeforeMethod
-    public void setUpFlow() {
+    public void setUpRegisterTest() {
         log.info("Open login page");
         DriverManager.getDriver().get("https://movie-project-front-end.vercel.app/login");
         loginPage = new LoginPage();
@@ -49,7 +49,7 @@ public class RegisterTest extends BaseTest {
     }
 
     @Test
-    public void inputValidData() {
+    public void shouldRegisterSuccessfullyWhenInputIsValid() {
         registerPage.inputUsername("Nguyễn Đăng Duyyyyyy");
         registerPage.inputEmail("trandangduy1444444@gmail.com");
         registerPage.inputPassword("xanhlacay222222");
@@ -58,7 +58,7 @@ public class RegisterTest extends BaseTest {
     }
 
     @Test(dataProvider = "invalidUsernameData", dependsOnMethods = {"inputValidData"})
-    public void inputInvalidUsername(String username) {
+    public void shouldFailToRegisterWhenUsernameIsInvalid(String username) {
         registerPage.inputUsername(username);
         registerPage.inputEmail("trandangduy15@gmail.com");
         registerPage.inputPassword("xanhlacay3");
@@ -68,7 +68,7 @@ public class RegisterTest extends BaseTest {
     }
 
     @Test(dataProvider = "invalidEmailData")
-    public void inputInvalidEmail(String email) {
+    public void shouldFailToRegisterWhenEmailIsInvalid(String email) {
         registerPage.inputUsername("Trần Minh Duy");
         registerPage.inputEmail(email);
         registerPage.inputPassword("xanhlacay3");
@@ -78,7 +78,7 @@ public class RegisterTest extends BaseTest {
     }
 
     @Test(dataProvider = "invalidPasswordData")
-    public void inputInvalidPassword(String password) {
+    public void shouldFailToRegisterWhenPasswordIsInvalid(String password) {
         registerPage.inputUsername("Trần Minh Duy");
         registerPage.inputEmail("trandangduy15@gmail.com");
         registerPage.inputPassword(password);
@@ -88,7 +88,7 @@ public class RegisterTest extends BaseTest {
     }
 
     @Test
-    public void inputExistingUsername() {
+    public void shouldFailToRegisterWhenInputExistingUsername() {
         registerPage.inputUsername("Trần Đăng Duy");
         registerPage.inputEmail("trandangduy15@gmail.com");
         registerPage.inputPassword("xanhlacay3");
@@ -98,7 +98,7 @@ public class RegisterTest extends BaseTest {
     }
 
     @Test
-    public void inputExistingEmail() {
+    public void shouldFailToRegisterWhenInputExistingEmail() {
         registerPage.inputUsername("Trần Minh Duy");
         registerPage.inputEmail("trandangduy13@gmail.com");
         registerPage.inputPassword("xanhlacay3");
@@ -108,7 +108,7 @@ public class RegisterTest extends BaseTest {
     }
 
     @Test
-    public void inputExistingPassword() {
+    public void shouldFailToRegisterWhenInputExistingPassword() {
         registerPage.inputUsername("Trần Minh Duy");
         registerPage.inputEmail("trandangduy15@gmail.com");
         registerPage.inputPassword("xanhlacay1");
@@ -118,7 +118,7 @@ public class RegisterTest extends BaseTest {
     }
 
     @Test
-    public void navigateToLoginPage() {
+    public void shouldNavigateToLoginPageSuccessfully() {
         registerPage.clickLoginLinkText();
         String currentURL = DriverManager.getDriver().getCurrentUrl();
         Assert.assertTrue(currentURL.contains("login"), "An error occured while navigating");

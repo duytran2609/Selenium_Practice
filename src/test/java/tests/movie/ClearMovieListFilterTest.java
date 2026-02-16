@@ -39,8 +39,8 @@ public class ClearMovieListFilterTest extends BaseTest {
         int sizeAfterClearFilter = moviePage.getNumberOfMovies();
         System.out.println("Number of movies after clear filter: " + sizeAfterClearFilter);
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(moviePage.getInputText().isEmpty(), "Input still had keyword");
-        softAssert.assertEquals(sizeAfterClearFilter, defaultSize, "Two lists were not equal in size");
+        softAssert.assertTrue(moviePage.getInputText().isEmpty(), "Input still has keyword");
+        softAssert.assertEquals(sizeAfterClearFilter, defaultSize, "Two lists are not equal in size");
         softAssert.assertAll();
     }
 
@@ -57,8 +57,8 @@ public class ClearMovieListFilterTest extends BaseTest {
         int sizeAfterClearFilter = moviePage.getNumberOfMovies();
         System.out.println("Number of movies after clear filter: " + sizeAfterClearFilter);
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(defaultOption, "Tất cả loại", "The dropdown did not display default option");
-        softAssert.assertEquals(sizeAfterClearFilter, defaultSize, "Two lists were not equal in size");
+        softAssert.assertEquals(defaultOption, "Tất cả loại", "The dropdown does not display default option");
+        softAssert.assertEquals(sizeAfterClearFilter, defaultSize, "Two lists are not equal in size");
         softAssert.assertAll();
     }
 
@@ -75,9 +75,9 @@ public class ClearMovieListFilterTest extends BaseTest {
         int sizeAfterClearFilter = moviePage.getNumberOfMovies();
         System.out.println("Number of movies after clear filter: " + sizeAfterClearFilter);
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(moviePage.getInputText().isEmpty(), "Input still had keyword");
-        softAssert.assertEquals(defaultOption, "Tất cả loại", "The dropdown did not display default option");
-        softAssert.assertEquals(sizeAfterClearFilter, defaultSize, "Two lists were not equal in size");
+        softAssert.assertTrue(moviePage.getInputText().isEmpty(), "Input still has keyword");
+        softAssert.assertEquals(defaultOption, "Tất cả loại", "The dropdown does not display default option");
+        softAssert.assertEquals(sizeAfterClearFilter, defaultSize, "Two lists are not equal in size");
         softAssert.assertAll();
     }
 
@@ -89,6 +89,6 @@ public class ClearMovieListFilterTest extends BaseTest {
         moviePage.waitForMoviesReload();
         int sizeAfterClearFilter = moviePage.getNumberOfMovies();
         System.out.println("Number of movies after clear filter: " + sizeAfterClearFilter);
-        Assert.assertEquals(sizeAfterClearFilter, defaultSize, "Two lists were not equal in size");
+        Assert.assertEquals(sizeAfterClearFilter, defaultSize, "Two lists are not equal in size");
     }
 }

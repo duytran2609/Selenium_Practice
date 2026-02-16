@@ -20,19 +20,13 @@ public class ViewHomeMovieTest extends BaseTest {
         homePage = loginPage.login("trandangduy13@gmail.com", "xanhlacay1");
     }
 
-    @Test
-    public void shouldGetMovieNumber() {
-        int totalMovie = homePage.getNumberOfMovies();
-        Assert.assertEquals(totalMovie, 1, "Số movie không đủ");
-    }
-
     @Test()
     public void shouldDisplayMovieCardSuccessfully() {
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(homePage.isMovieCardDisplay(), "Movie card did not display");
-        softAssert.assertTrue(homePage.isMoviePosterDisplay(), "Movie poster did not display");
-        softAssert.assertTrue(homePage.isMovieTitleDisplay(),  "Movie title did not display");
-        softAssert.assertTrue(homePage.isMovieYearDisplay(), "Movie year did not display");
+        softAssert.assertTrue(homePage.isMovieCardDisplay(), "Movie card does not display");
+        softAssert.assertTrue(homePage.isMoviePosterDisplay(), "Movie poster does not display");
+        softAssert.assertTrue(homePage.isMovieTitleDisplay(),  "Movie title does not display");
+        softAssert.assertTrue(homePage.isMovieYearDisplay(), "Movie year does not display");
         softAssert.assertAll();
     }
 

@@ -36,7 +36,7 @@ public class MovieListPaginationTest extends BaseTest {
         moviePage = homePage.headerComponent.navigateToMoviePage();
     }
 
-    @DataProvider(name = "pageNumberData", parallel = false)
+    @DataProvider(name = "pageNumberData")
     public Object[][] pageNumberData() {
         return new Object[][] {
                 {"2"},
@@ -44,7 +44,7 @@ public class MovieListPaginationTest extends BaseTest {
         };
     }
 
-    @DataProvider(name = "invalidPageInputData", parallel = false)
+    @DataProvider(name = "invalidPageInputData")
     public Object[][] invalidPageInputData() {
         return new Object[][] {
                 {"abc"},
@@ -56,7 +56,7 @@ public class MovieListPaginationTest extends BaseTest {
 
     @Test()
     public void shouldDisplayFirstPageAtFirst() {
-        System.out.println("Trang đang được chọn: " + moviePage.getPageSelected());
+        System.out.println("Current page selected: " + moviePage.getPageSelected());
         if (moviePage.getPageSelected().equals("1"))
         {
             Assert.assertTrue(!moviePage.isPreviousPageButtonActive(), "Still can naviagte to previous page");
@@ -153,7 +153,7 @@ public class MovieListPaginationTest extends BaseTest {
                         Duration.ofSeconds(5)
                 ).until(ExpectedConditions.alertIsPresent());
                 String alertText = alert.getText();
-                Assert.assertEquals(alertText, "Số trang phải lớn hơn 0!", "Current alert text is not equal");
+                Assert.assertEquals(alertText, "The number of movies must greater than 0!", "Current alert text is not equal");
                 alert.accept();
                 Assert.assertEquals(Integer.parseInt(moviePage.getPageSelected()), pageSelectedIndex, "Currentv b  page is not equal");
 
@@ -164,7 +164,7 @@ public class MovieListPaginationTest extends BaseTest {
                         Duration.ofSeconds(5)
                 ).until(ExpectedConditions.alertIsPresent());
                 String alertText = alert.getText();
-                String expectedText = String.format("Số trang không được vượt quá %d!", totalPage);
+                String expectedText = String.format("A number %d!", totalPage);
                 Assert.assertEquals(alertText, expectedText, "Current alert text is not equal");
                 alert.accept();
                 Assert.assertEquals(Integer.parseInt(moviePage.getPageSelected()), pageSelectedIndex, "Current page is not equal");
@@ -186,7 +186,7 @@ public class MovieListPaginationTest extends BaseTest {
             moviePage.inputPageToNavigate(page);
             Alert alert = DriverManager.getDriver().switchTo().alert();
             String alertText = alert.getText();
-            Assert.assertEquals(alertText, "Vui lòng nhập số trang!", "Current alert text is not equal");
+            Assert.assertEquals(alertText, "Please input page number!", "Current alert text is not equal");
         }
     }
 
@@ -194,13 +194,9 @@ public class MovieListPaginationTest extends BaseTest {
     public void shouldDisplayMovieListSuccessfullyAfterNavigatingToAnotherPage() {
         List<String> firstMovieTitleList = moviePage.getAllMovieTitles();
         String firstMovieTitle = firstMovieTitleList.getFirst();
-        System.out.println("Danh sách tiêu đề phim ban đầu: " + firstMovieTitleList);
-        System.out.println("Têu đề phim ban đầu: " + firstMovieTitle);
         moviePage.navigateToAnotherPage("2");
         List<String> nextMovieTitleList = moviePage.getAllMovieTitles();
         String nextMovieTitle = nextMovieTitleList.getFirst();
-        System.out.println("Danh sách tiêu đề phim sau đó: " + nextMovieTitleList);
-        System.out.println("Têu đề phim sau đó: " + nextMovieTitle);
         Assert.assertNotEquals(firstMovieTitle, nextMovieTitle);
     }
 }
