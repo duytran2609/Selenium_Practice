@@ -1,4 +1,4 @@
-# Movie App Automation Suite 🎬
+# Movie Web Application Automation Suite 🎬
 
 ## 📋 Introduction
 
