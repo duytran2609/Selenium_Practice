@@ -1,13 +1,21 @@
 # Movie App Automation Suite 🎬
 
-A professional **Automation Testing Framework** for a Movie Streaming Web Application, built with **Java + Selenium WebDriver** and designed following **industry-standard best practices**.
+## 📋 Introduction
 
-This project demonstrates my skills in:
+This is a **personal automation testing project** built as part of my *learning-by-doing* journey in Automation Testing.
 
-- UI & API Automation Testing  
-- Test Framework Design  
-- Maintainable Test Architecture  
-- Real-world QA Practices  
+Instead of learning only from theory, this project was created to practice real-world QA workflows, apply automation tools in a practical context, and continuously improve my testing skills through hands-on experience.
+
+The goal of this project is to:
+
+- Apply automation concepts in a real project  
+- Practice designing a maintainable test framework  
+- Simulate real-world QA scenarios  
+- Learn and improve through implementation  
+
+The automation suite validates core features of a movie streaming web application, including authentication, search, filtering, and pagination.
+
+This project reflects my growth mindset and commitment to becoming a professional Automation Tester.
 
 ---
 
@@ -127,3 +135,10 @@ src
 - Test data management enhancement
 
 ---
+
+## 👨‍💻 Author
+
+**Trần Đăng Duy**  
+Automation Testing Learner | Aspiring QA Engineer  
+
+This project is part of my personal portfolio to demonstrate my practical skills and learning progress in test automation.
